@@ -1,21 +1,34 @@
 name: RAZZO Public Worker V7
-on:
+
+"on":
   repository_dispatch:
-    types: [razzo-work-item]
+    types:
+      - razzo-work-item
+
 permissions:
   contents: write
+
 jobs:
   execute:
     runs-on: ubuntu-latest
     env:
-      RAZZO_WORK_ITEM: ${{ toJson(github.event.client_payload) }}
+      RAZZO_WORK_ITEM: ${{ toJSON(github.event.client_payload) }}
       RAZZO_FABRIC_TOKEN: ${{ secrets.RAZZO_FABRIC_TOKEN }}
       GITHUB_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/setup-python@v5
-        with: {python-version: '3.12'}
-      - run: curl -fsSL https://raw.githubusercontent.com/giovannifidel-collab/pfarma-ci/main/razzo/public_fabric/shard_entrypoint.py -o shard_entrypoint.py
-      - run: python shard_entrypoint.py
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with: {name: razzo-receipt-${{ github.event.client_payload.workItemId }}, path: receipt.json}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download central worker entrypoint
+        shell: bash
+        run: curl --fail --silent --show-error --location https://raw.githubusercontent.com/giovannifidel-collab/pfarma-ci/main/razzo/public_fabric/shard_entrypoint.py --output shard_entrypoint.py
+      - name: Execute exact-SHA worker
+        run: python shard_entrypoint.py
+      - name: Upload sanitized receipt
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: razzo-receipt
+          path: receipt.json
+          if-no-files-found: warn
