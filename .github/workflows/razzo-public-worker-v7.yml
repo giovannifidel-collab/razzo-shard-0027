@@ -20,9 +20,14 @@ jobs:
         with: {name: razzo-receipt-${{ github.event.client_payload.workItemId }}, path: receipt.json}
       - name: Return sanitized receipt
         if: always()
-        env: {TOKEN: '${{ secrets.RAZZO_FABRIC_TOKEN }}'}
+        env:
+          TOKEN: ${{ secrets.RAZZO_FABRIC_TOKEN }}
         run: |
           python - <<'PY'
           import json, os, urllib.request
-          r=json.load(open('receipt.json')); q=urllib.request.Request('https://api.github.com/repos/giovannifidel-collab/pfarma-ci/dispatches',data=json.dumps({'event_type':'razzo-receipt','client_payload':r}).encode(),method='POST'); q.add_header('Authorization',f"Bearer {os.environ['TOKEN']}"); q.add_header('Accept','application/vnd.github+json'); q.add_header('Content-Type','application/json'); urllib.request.urlopen(q,timeout=30).read()
+          r=json.load(open('receipt.json'))
+          envelope={'schema':'razzo.receipt-envelope.v1','workItemId':r['workItemId'],'receipt':r}
+          q=urllib.request.Request('https://api.github.com/repos/giovannifidel-collab/pfarma-ci/dispatches', data=json.dumps({'event_type':'razzo-receipt','client_payload':envelope}).encode(), method='POST')
+          q.add_header('Authorization',f"Bearer {os.environ['TOKEN']}"); q.add_header('Accept','application/vnd.github+json'); q.add_header('Content-Type','application/json')
+          urllib.request.urlopen(q, timeout=30).read()
           PY
