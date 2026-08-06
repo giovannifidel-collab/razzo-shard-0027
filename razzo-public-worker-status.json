@@ -1,18 +1,18 @@
 {
   "schema": "razzo.public-worker-status.v2",
-  "state": "completed",
-  "workflowRunId": "30960438588",
-  "cycleId": "razzo-9fc39d8816c4",
-  "generationId": "razzo-9fc39d8816c4:g1",
-  "workItemId": "49287b9f6f41fef46f7488f0",
+  "state": "started",
+  "workflowRunId": "31106689036",
+  "cycleId": "razzo-97d202b8af66",
+  "generationId": "razzo-97d202b8af66:g1",
+  "workItemId": "4e388ca672f9a8f507603d71",
   "shard": "razzo-shard-0027",
   "projectId": "family-cloud",
   "repository": "giovannifidel-collab/family-cloud",
   "title": "Family Cloud Factory planner execution",
   "kind": "planning",
-  "exactInputSha": "6b9cdfc6e865204a490456688c55e1d61c5ced41",
-  "observedSha": "6b9cdfc6e865204a490456688c55e1d61c5ced41",
-  "durationSeconds": 5.423,
+  "exactInputSha": "b99fd32f296cd323ffd8ad59bf0e335d20fcae73",
+  "observedSha": null,
+  "durationSeconds": null,
   "error": null,
-  "updatedEpoch": 1785886470.6792383
+  "updatedEpoch": 1786023370.5429122
 }
