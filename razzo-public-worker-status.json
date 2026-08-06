@@ -1,6 +1,6 @@
 {
   "schema": "razzo.public-worker-status.v2",
-  "state": "started",
+  "state": "completed",
   "workflowRunId": "31106689036",
   "cycleId": "razzo-97d202b8af66",
   "generationId": "razzo-97d202b8af66:g1",
@@ -11,8 +11,8 @@
   "title": "Family Cloud Factory planner execution",
   "kind": "planning",
   "exactInputSha": "b99fd32f296cd323ffd8ad59bf0e335d20fcae73",
-  "observedSha": null,
-  "durationSeconds": null,
+  "observedSha": "b99fd32f296cd323ffd8ad59bf0e335d20fcae73",
+  "durationSeconds": 7.271,
   "error": null,
-  "updatedEpoch": 1786023370.5429122
+  "updatedEpoch": 1786023379.1035454
 }
